@@ -1,0 +1,14 @@
+{
+  "name": "electron_shopping_list",
+  "version": "1.0.0",
+  "description": "Electron Shopping List Desktop App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Lin Shan",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^20.1.4"
+  }
+}
