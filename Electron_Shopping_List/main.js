@@ -4,7 +4,7 @@ const path = require('path');
 const { allowedNodeEnvironmentFlags } = require('process');
 const { protocol } = require('electron');
 
-const {app, BrowserWindow, Menu} = electron;
+const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 let mainWindow;
 let addWindow;
@@ -12,7 +12,12 @@ let addWindow;
 // Listen for app to be ready
 app.on('ready', function(){
     // Create new window
-    mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+        }
+    });
     // Load html into window
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'mainWindow.html'),
@@ -35,7 +40,11 @@ function createAddWindow(){
     addWindow = new BrowserWindow({
         width: 300,
         height: 200,
-        title: 'Add Shopping List Item'
+        title: 'Add Shopping List Item',
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+        }
     });
     // Load html into window
     addWindow.loadURL(url.format({
@@ -49,6 +58,12 @@ function createAddWindow(){
     });
 }
 
+// Catch item:add
+ipcMain.on('item:add',function(e, item){
+    mainWindow.webContents.send('item:add', item);
+    addWindow.close();
+});
+
 // Create menu template
 const mainMenuTemplate = [
     {
@@ -56,12 +71,17 @@ const mainMenuTemplate = [
         submenu: [
             {
                 label: 'Add Item',
+                accelerator: process.platform == 'darwin' ? 'Command+A' :
+                'Ctrl+A',
                 click(){
                     createAddWindow();
                 }
             },
             {
-                label: 'Clear Item'
+                label: 'Clear Item',
+                click(){
+                    mainWindow.webContents.send('item:clear');
+                }
             },
             {
                 label: 'Quit',
