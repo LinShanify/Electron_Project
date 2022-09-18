@@ -6,6 +6,9 @@ const { protocol } = require('electron');
 
 const {app, BrowserWindow, Menu, ipcMain} = electron;
 
+// Set Environment
+process.env.NODE_ENV = 'production';
+
 let mainWindow;
 let addWindow;
 
