@@ -1,11 +1,10 @@
 # Electron Shopping List App
 
-Simple Electron App following tutoral from Traversy Media Youtube Video 
+Simple Electron Shopping List App with [Materialize](https://materializecss.com/) following tutoral from Traversy Media Youtube Video [[Link](https://youtu.be/kN1Czs0m1SU)]
 
-[Link](https://youtu.be/kN1Czs0m1SU)
+# Materializ
 
 As it is a toy project, no databse linked. Save in memory only, lose everything after close the app
-
 
 ## How to Run
 
@@ -14,7 +13,6 @@ As it is a toy project, no databse linked. Save in memory only, lose everything 
 *ctl+a / cmd+a*  will add item
 
 double click the item will remove the item
-
 
 ## How to Package
 
